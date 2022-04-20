@@ -9,8 +9,11 @@
 </servlet>
 <servlet-mapping>
 		 <servlet-name>Jersey Web Application</servlet-name>
+
+ 	
  		<url-pattern>/BillingServicesTest/*</url-pattern>
  		<url-pattern>/PaymentServicesTest/*</url-pattern>
+
 </servlet-mapping>
   
   
