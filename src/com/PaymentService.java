@@ -2,6 +2,7 @@ package com;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -13,6 +14,7 @@ import model.Payment;
 public class PaymentService {
 Payment payment = new Payment();
 	
+	//InserPayment() method
 	
 	@POST
 	@Path("/AddPayment") 
@@ -30,6 +32,16 @@ Payment payment = new Payment();
 	{ 
 	 String output = payment.insertPayment(Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV); 
 	 return output; 
+	}
+	
+	
+	//RetrievePayment() method
+	
+	@GET
+	@Path("/RetrievePayment")
+	@Produces(MediaType.TEXT_HTML)
+	public String readPayment() {
+		return payment.readPayment();
 	}
 
 
