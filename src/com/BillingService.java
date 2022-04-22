@@ -1,12 +1,17 @@
 package com;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
 
 import model.Billing;
 
@@ -43,6 +48,24 @@ Billing billobj = new Billing();
 	public String readUnitCount() {
 		return billobj.readUnitCount();
 	}
+	
+	
+	//delete billing details
+	
+			@DELETE
+			@Path("/deleteBill") 
+			@Consumes(MediaType.APPLICATION_XML) 
+			@Produces(MediaType.TEXT_PLAIN) 
+			public String deleteBilling(String form1Data) 
+			{ 
+			//Convert to XML document
+			 Document docu = Jsoup.parse(form1Data, "", Parser.xmlParser()); 
+			 
+			 String billID = docu.select("billID").text(); 
+			 String output = billobj.deleteBilling(billID); 
+			
+			 return output; 
+			}
 	
 
 }
