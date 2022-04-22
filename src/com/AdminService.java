@@ -18,9 +18,10 @@ public class AdminService {
 	@Path("/addNotice")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
 	@Produces(MediaType.TEXT_PLAIN)
-	public String insertAccountBuyer(@FormParam("ncontent") String ncontent){ 
+	public String insertAccountBuyer(@FormParam("ncontent") String ncontent, @FormParam("issuedate") String issuedate){ 
 		
-		String output = adminObj.insertNotice(ncontent); 
+		String output = adminObj.insertNotice(ncontent, issuedate);
+		
 		
 		return output; 
 	}
