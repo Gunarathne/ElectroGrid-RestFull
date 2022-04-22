@@ -13,9 +13,15 @@
  	
  		<url-pattern>/BillingServicesTest/*</url-pattern>
 
+ 		<url-pattern>/ComplainService/*</url-pattern>
+
+
  		<url-pattern>/adminService/*</url-pattern>
 
  		<url-pattern>/PaymentServicesTest/*</url-pattern>
+ 		
+        <url-pattern>/UserServiceTest/*</url-pattern>
+
 
 
 </servlet-mapping>
