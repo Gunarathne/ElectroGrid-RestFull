@@ -31,7 +31,7 @@ public class Billing {
 		//Add unit count 
 			
 	    //Add unit count to the user's account
-	public String insertUnitCount(String accno, String uname, String unit, String bmonth, String bamount  ) { 
+	public String insertUnitCount(String accno, String uname, String unit, String bmonth, String bamount, String issuedDate  ) { 
 				
 				String output = ""; 
 				
@@ -44,7 +44,7 @@ public class Billing {
 						// create a prepared statement
 						String query;
 					
-						query = " insert into billing_tb(`billID`,`AccountNumber`,`name`,`unitCount`,`month`,`billAmount`)" + " values (?, ?, ?, ?, ?,?)" ; 
+						query = " insert into billing_tb(`billID`,`AccountNumber`,`name`,`unitCount`,`month`,`billAmount`,`issuedDate`)" + " values (?, ?, ?, ?, ?,?,?)" ; 
 						PreparedStatement preparedStmt = con.prepareStatement(query);
 						 
 						// binding values
@@ -58,6 +58,7 @@ public class Billing {
 						String billAmount= String.valueOf(calculateBill(no));
 						
 						preparedStmt.setFloat(6, Float.parseFloat(billAmount)); 
+						preparedStmt.setString(7, issuedDate);
 						
 					
 						// execute the statement
