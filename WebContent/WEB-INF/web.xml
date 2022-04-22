@@ -19,6 +19,8 @@
  		<url-pattern>/adminService/*</url-pattern>
 
  		<url-pattern>/PaymentServicesTest/*</url-pattern>
+ 		
+        <url-pattern>/UserServiceTest/*</url-pattern>
 
 
 
