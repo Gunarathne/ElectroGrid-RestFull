@@ -71,4 +71,62 @@ public class Complain {
 		
 		
 		
+		//Read a Complain
+				public String readComplain() 
+				{
+					String output = "";
+					
+					try
+					{
+						Connection con = connect();
+						
+						if(con == null)
+						{
+							return "Error while connecting to the database for Reading.";}
+						
+						//Prepare the html table to be displayed
+						output = "<table border='1'><tr><th>Complain ID</th>" 
+						        +  "<th>Complain</th></tr>";
+						
+						String query = "select * from complain_table";
+						 java.sql.Statement stmt = con.createStatement(); 
+						 ResultSet rs = stmt.executeQuery(query); 
+						
+						// iterate through the rows in the result set
+						while(rs.next())
+						{
+							 String comId = Integer.toString(rs.getInt("Complain_id")); 
+							 String comDec = rs.getString("Description"); 
+						
+						
+						 // Add into the html table
+						 output += "<tr><td>" + comId + "</td>"; 
+						 output += "<td>" + comDec + "</td>"; 
+					
+						 // buttons
+						output += "<td><form method='post' action='#'>"
+								+ "<input name='btnUpdate' "
+								+ " type='submit' value='Update'>"
+								+ "<td><form method='post' action='#'>"
+								+ "<input name='btnRemove' "
+								+ " type='submit' value='Remove'>"
+								+ "<input name='comId' type='hidden' "
+							    + " value='" + comId + "'>" + "</form></td></tr>"; 
+						 		
+						
+						}
+						 con.close();
+						 // Complete the html table
+						 output += "</table>"; 
+					}
+					catch(Exception e)
+					{
+						output = "Error while Reading the Complains ."; 
+						System.err.println(e.getMessage());
+					}
+					return output;
+					
+				}
+				
+		
 }
