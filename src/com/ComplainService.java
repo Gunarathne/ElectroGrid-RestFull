@@ -47,6 +47,28 @@ public class ComplainService {
 			return comObj.readComplain(); 
 		}
 
+		
+		//Update Complain 
+		@PUT
+		@Path("/updateCom")
+		@Consumes(MediaType.APPLICATION_JSON) 
+		@Produces(MediaType.TEXT_PLAIN)
+		public String updateComplain(String form2Data)
+		{
+			//Convert the input string to a JSON object 
+			JsonObject comObj2 = new JsonParser().parse(form2Data).getAsJsonObject(); 
+			
+			//Read the values from the JSON object
+			String Description = comObj2.get("Description").getAsString();
+			String Complain_id  = comObj2.get("Complain_id").getAsString(); 
+
+			String output = comObj.updateComplain(Description, Complain_id );
+			
+			
+			return output;
+		}
+		
+		
 	
 	
 }
