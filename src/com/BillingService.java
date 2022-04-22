@@ -31,17 +31,18 @@ Billing billobj = new Billing();
 								  @FormParam("name") String name, 
 								  @FormParam("unitCount") String unitCount, 
 								  @FormParam("month") String month,
-								  @FormParam("bamount") String bamount )
+								  @FormParam("bamount") String bamount ,
+								  @FormParam("issuedDate") String issuedDate)
 								  {
 								 
 		
-		String output = billobj.insertUnitCount(AccountNumber, name, unitCount, month,bamount); 
+		String output = billobj.insertUnitCount(AccountNumber, name, unitCount, month,bamount,issuedDate); 
 		
 		return output; 
 	}
 	
 	
-	
+	//read bill details
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
