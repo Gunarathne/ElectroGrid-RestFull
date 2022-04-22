@@ -128,5 +128,43 @@ public class Complain {
 					
 				}
 				
+				
+				//Update Complain		
+				public String updateComplain(String desc, String ComplainId)
+				{
+					String output = "";
+					
+					try
+					{
+						Connection con = connect();
+						
+						if(con == null)
+						{return "Error while connecting to the database for Updating.";}
+						
+						//create a prepared statement
+						String query = "UPDATE complain_table SET Description=? WHERE Complain_id =?";
+						
+						PreparedStatement preparedStmt = con.prepareStatement(query);
+						
+						//Binding Values
+						preparedStmt.setString(1, desc);
+						preparedStmt.setInt(2, Integer.parseInt(ComplainId)); 
+						
+						
+						// execute the statement
+						 preparedStmt.execute(); 
+						 con.close(); 
+						 output = "Updated successfully";
+						
+					}catch(Exception e)
+					{
+						output = "Error while Updating the Complains ."; 
+						System.err.println(e.getMessage());
+					}
+					return output;
+					
+					
+				}
+				
 		
 }
