@@ -5,6 +5,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -12,6 +13,9 @@ import javax.ws.rs.core.MediaType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import model.Admin;
 
@@ -52,6 +56,22 @@ public class AdminService {
 		String output = adminObj.removeNotice(nID); 
 	
 		return output; 
+	}
+	
+	@PUT
+	@Path("/editnotice") 
+	@Consumes(MediaType.APPLICATION_JSON) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String updatenotice(String notice) 
+	{ 
+	//Convert the input string to a JSON object 
+	 JsonObject itemObject = new JsonParser().parse(notice).getAsJsonObject(); 
+	//Read the values from the JSON object
+	 String nID = itemObject.get("nid").getAsString(); 
+	 String ncontent = itemObject.get("ncontent").getAsString(); 
+	 String issuedate = itemObject.get("issuedate").getAsString(); 
+	 String output = adminObj.updatenotice(nID, ncontent, issuedate); 
+	return output; 
 	}
 	
 }
