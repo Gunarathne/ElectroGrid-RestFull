@@ -33,7 +33,7 @@ public class Complain {
 		}
 		
 		//insert a Complain
-		public String insertComplain(String desc)
+		public String insertComplain(String desc, String comDate)
 		{
 			String output = "";
 			
@@ -45,14 +45,16 @@ public class Complain {
 				{return "Error while connecting to the database for inserting.";}
 				
 				//create a prepared statement 
-				String query = " insert into complain_table (`Complain_id`,`Description`)"
-						+ " values (?, ?)";
+				String query = " insert into complain_table (`Complain_id`,`Description`,`complainDate`)"
+						+ " values (?, ?, ?)";
 				
 				PreparedStatement preparedStmt = con.prepareStatement(query);
 				
 				// binding values
 				preparedStmt.setInt(1, 0);
 				preparedStmt.setString(2, desc);
+				preparedStmt.setString(3, comDate);
+				
 				
 				
 				//execute the statement
