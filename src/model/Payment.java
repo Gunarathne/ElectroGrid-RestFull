@@ -93,11 +93,12 @@ public class Payment {
 					 
 					 // Prepare the html table to be displayed
 					 output = "<table border='1'>"
-					 		 + "<tr><th>User Name</th>" 
-							 +"<th>Email</th>"
+					 		 + "<tr><th>Payment ID</th>" 
+							 + "<th>Name</th>"
+							 + "<th>Email</th>"
 							 + "<th>Address</th>"
 							 + "<th>Contact Number</th>" 
-							 +"<th>Card Name</th>"
+							 + "<th>Card Name</th>"
 							 + "<th>Credit Card Number</th>"
 							 + "<th>Expiry Date</th>"
 							 + "<th>CVV</th>" 
@@ -122,7 +123,8 @@ public class Payment {
 						 String CVV = res.getString("CVV"); 
 						 
 						 // Add a row into the html table
-						 output += "<tr><td>" + Name + "</td>"; 
+						 output += "<tr><td>" + PaymentID + "</td>";
+						 output += "<td>" + Name + "</td>";
 						 output += "<td>" + Email + "</td>"; 
 						 output += "<td>" + Address + "</td>";
 						 output += "<td>" + ContactNumber + "</td>";
@@ -158,5 +160,48 @@ public class Payment {
 					return output; 
 				}
 
+				// Update buyers in the table
+				public String updatePayment(String ID, String username, String email, String address, String connumber, String cname, String cardno, String expdate, String cvv)
+						{ 
+							 String output = ""; 
+							 try
+							 { 
+							 Connection con = connect(); 
+							 if (con == null) 
+							 {
+								 return "Error while connecting to the database for updating."; 
+								 
+							 } 
+							 // create a prepared statement
+							 String query = "UPDATE payment SET Name=?,Email=?,Address=?,ContactNumber=?,CardName=?,CreditCardNumber=?,ExpiryDate=?,CVV=? WHERE PaymentID=? ";
+								
+							 PreparedStatement preparedStmt = con.prepareStatement(query);
+							 
+							 // binding values
+							 preparedStmt.setString(1, username); 
+							 preparedStmt.setString(2, email); 
+							 preparedStmt.setString(3, address); 
+							 preparedStmt.setString(4, connumber); 
+							 preparedStmt.setString(5, cname); 
+							 preparedStmt.setString(6, cardno); 
+							 preparedStmt.setString(7, expdate); 
+							 preparedStmt.setString(8, cvv); 
+							 preparedStmt.setInt(9, Integer.parseInt(ID)); 
+							 
+							 // execute the statement
+							    preparedStmt.execute(); 
+							    con.close(); 
+							    output = "Payment Updated successfully"; 
+							 } 
+							 
+							 catch (Exception e) 
+							 { 
+							     output = "Error while updating the payment details."; 
+							     System.err.println(e.getMessage()); 
+							 } 
+							 
+							 return output; 
+							 }
+				
 
 }

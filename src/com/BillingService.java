@@ -5,6 +5,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -12,6 +13,9 @@ import javax.ws.rs.core.MediaType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import model.Billing;
 
@@ -66,6 +70,32 @@ Billing billobj = new Billing();
 			 String output = billobj.deleteBilling(billID); 
 			
 			 return output; 
+			}
+			
+			//updating billing details
+			@PUT
+			@Path("/updateBill") 
+			@Consumes(MediaType.APPLICATION_JSON) 
+			@Produces(MediaType.TEXT_PLAIN) 
+			public String updateBill(String form1Data) 
+			{ 
+				
+			//Convert form data  to a JSON object 
+				
+			 JsonObject billobj1 = new JsonParser().parse(form1Data).getAsJsonObject(); 
+			 
+			//Read the values from the JSON object
+			 String billID = billobj1.get("billID").getAsString();
+			 String AccountNumber = billobj1.get("AccountNumber").getAsString(); 
+			 String name = billobj1.get("name").getAsString(); 
+			 String unitCount = billobj1.get("unitCount").getAsString();
+			 String month = billobj1.get("month").getAsString(); 
+			 String issuedDate = billobj1.get("issuedDate").getAsString();
+			 float billAmount = billobj1.get("billAmount").getAsFloat();
+			 
+			 
+			 String out = billobj.updateBill( billID,AccountNumber, name, unitCount, month,billAmount,issuedDate);
+			 return out;
 			}
 	
 
