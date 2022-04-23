@@ -31,10 +31,11 @@ Payment payment = new Payment();
 	 @FormParam("CardName") String CardName, 
 	 @FormParam("CreditCardNumber") String CreditCardNumber, 
 	 @FormParam("ExpiryDate") String ExpiryDate, 
-	 @FormParam("CVV") String CVV) 
+	 @FormParam("CVV") String CVV,
+	 @FormParam("PaymentDate") String PaymentDate)
 	
 	{ 
-	 String output = payment.insertPayment(Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV); 
+	 String output = payment.insertPayment(Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV,PaymentDate); 
 	 return output; 
 	}
 	

@@ -30,7 +30,7 @@ public class Payment {
 		}
 
 		         //Insert Buyers
-				public String insertPayment(String username, String email, String address, String connumber, String cname, String cardno, String expdate, String cvv)
+				public String insertPayment(String username, String email, String address, String connumber, String cname, String cardno, String expdate, String cvv, String paymentdate)
 				{ 
 					Connection con = connect();
 					String output = "";
@@ -43,7 +43,7 @@ public class Payment {
 						 } 
 						 
 						 // create a prepared statement
-						 String query = " insert into payment (`PaymentID`,`Name`,`Email`,`Address`,`ContactNumber`,`CardName`,`CreditCardNumber`,`ExpiryDate`,`CVV`)"+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+						 String query = " insert into payment (`PaymentID`,`Name`,`Email`,`Address`,`ContactNumber`,`CardName`,`CreditCardNumber`,`ExpiryDate`,`CVV`,`PaymentDate`)"+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 						 
 						 PreparedStatement Pstatement = con.prepareStatement(query); 
 						 
@@ -57,6 +57,7 @@ public class Payment {
 						 Pstatement.setString(7, cardno);
 						 Pstatement.setString(8, expdate);
 						 Pstatement.setString(9, cvv);
+						 Pstatement.setString(10, paymentdate);
 						 
 						 
 						//execute the statement
