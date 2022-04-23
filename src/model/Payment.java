@@ -102,7 +102,8 @@ public class Payment {
 							 + "<th>Card Name</th>"
 							 + "<th>Credit Card Number</th>"
 							 + "<th>Expiry Date</th>"
-							 + "<th>CVV</th>" 
+							 + "<th>CVV</th>"
+							 + "<th>Payment Date</th>"
 							 + "<th>Update</th><th>Remove</th></tr>"; 
 					 
 					 String query = "select * from payment"; 
@@ -121,7 +122,8 @@ public class Payment {
 						 String CardName = res.getString("CardName"); 
 						 String CreditCardNumber = res.getString("CreditCardNumber"); 
 						 String ExpiryDate = res.getString("ExpiryDate"); 
-						 String CVV = res.getString("CVV"); 
+						 String CVV = res.getString("CVV");
+						 String PaymentDate = res.getString("PaymentDate");
 						 
 						 // Add a row into the html table
 						 output += "<tr><td>" + PaymentID + "</td>";
@@ -133,6 +135,7 @@ public class Payment {
 						 output += "<td>" + CreditCardNumber + "</td>"; 
 						 output += "<td>" + ExpiryDate + "</td>";
 						 output += "<td>" + CVV + "</td>";
+						 output += "<td>" + PaymentDate + "</td>";
 						 
 						 // buttons
 						 output += "<td><input name='btnUpdate' " 
