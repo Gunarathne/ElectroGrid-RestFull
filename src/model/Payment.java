@@ -93,7 +93,8 @@ public class Payment {
 					 
 					 // Prepare the html table to be displayed
 					 output = "<table border='1'>"
-					 		 + "<tr><th>User Name</th>" 
+					 		 + "<tr><th>Payment ID</th>" 
+							 + "<th>Name</th>"
 							 + "<th>Email</th>"
 							 + "<th>Address</th>"
 							 + "<th>Contact Number</th>" 
@@ -122,7 +123,8 @@ public class Payment {
 						 String CVV = res.getString("CVV"); 
 						 
 						 // Add a row into the html table
-						 output += "<tr><td>" + Name + "</td>"; 
+						 output += "<tr><td>" + PaymentID + "</td>";
+						 output += "<td>" + Name + "</td>";
 						 output += "<td>" + Email + "</td>"; 
 						 output += "<td>" + Address + "</td>";
 						 output += "<td>" + ContactNumber + "</td>";
