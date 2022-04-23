@@ -166,5 +166,42 @@ public class Complain {
 					
 				}
 				
+				//Delete a Complain
+				public String deleteComplain(String comID) 
+				{
+					String output = "";
+					
+					try 
+					{
+						Connection con = connect();
+						
+						if(con == null) 
+						{return "Error while connecting to the database for deleting.";}
+						
+						//create a prepared statement
+						String query = "delete from complain_table where Complain_id=?";
+					
+						
+						PreparedStatement preparedStmt = con.prepareStatement(query);
+						
+						//binding values
+						preparedStmt.setInt(1, Integer.parseInt(comID));
+						
+						
+						//execute the statement
+						preparedStmt.execute();
+						con.close();
+						
+						output = "Complain details Deleted successfully";
+						
+					}
+					catch(Exception e) {
+						output = "Error while deleting the Complain details.";
+						System.err.println(e.getMessage());
+					}
+					
+					return output;
+				}
+				
 		
 }
