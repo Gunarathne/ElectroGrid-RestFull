@@ -154,5 +154,42 @@ public class Admin {
 			 
 			 return output; 
 			 }
+			
+//===========================================================================================================
+//===========================================================================================================
+
+			public String updatenotice(String nID, String ncontent, String issuedate) {
+				
+				String output = ""; 
+				
+				 try{
+					 
+				 Connection con = connect(); 
+				 if (con == null){
+					 return "Error while connecting to the database for updating.";
+					 } 
+				 
+				 // create a prepared statement
+				 String query = "UPDATE notices SET ncontent=?,issuedate=? WHERE nid=?"; 
+				 PreparedStatement preparedStmt = con.prepareStatement(query); 
+				 
+				 // binding values
+				 preparedStmt.setString(1, ncontent); 
+				 preparedStmt.setString(2, issuedate); 
+				 preparedStmt.setInt(3, Integer.parseInt(nID)); 
+				 
+				 // execute the statement
+				 preparedStmt.execute(); 
+				 con.close(); 
+				 output = "Updated successfully"; 
+				 
+				 }catch (Exception e){
+					 
+				 output = "Error while updating the notice."; 
+				 System.err.println(e.getMessage());
+				 
+				 } 
+				 return output; 
+			}
 
 }
