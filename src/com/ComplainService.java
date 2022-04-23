@@ -31,10 +31,11 @@ public class ComplainService {
 	@Produces(MediaType.TEXT_PLAIN)
 	
 	public String insertComplain( 
-			 @FormParam("Description") String Description) 
+			 @FormParam("Description") String Description, 
+				@FormParam("complainDate") String comdate )
 			
 	{
-		String output = comObj.insertComplain(Description);
+		String output = comObj.insertComplain(Description, comdate);
 		System.out.println(output);
 		return output;
 		
