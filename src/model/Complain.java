@@ -88,7 +88,8 @@ public class Complain {
 						
 						//Prepare the html table to be displayed
 						output = "<table border='1'><tr><th>Complain ID</th>" 
-						        +  "<th>Complain</th></tr>";
+						        +  "<th>Complain</th>"
+								+  "<th>Date</th></tr>";
 						
 						String query = "select * from complain_table";
 						 java.sql.Statement stmt = con.createStatement(); 
@@ -99,11 +100,13 @@ public class Complain {
 						{
 							 String comId = Integer.toString(rs.getInt("Complain_id")); 
 							 String comDec = rs.getString("Description"); 
+							 String comDate = rs.getString("complainDate"); 
 						
 						
 						 // Add into the html table
 						 output += "<tr><td>" + comId + "</td>"; 
 						 output += "<td>" + comDec + "</td>"; 
+						 output += "<td>" + comDate + "</td>"; 
 					
 						 // buttons
 						output += "<td><form method='post' action='#'>"
