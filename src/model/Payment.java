@@ -165,7 +165,7 @@ public class Payment {
 				}
 
 				// Update buyers in the table
-				public String updatePayment(String ID, String username, String email, String address, String connumber, String cname, String cardno, String expdate, String cvv)
+				public String updatePayment(String ID, String username, String email, String address, String connumber, String cname, String cardno, String expdate, String cvv, String paymentdate)
 						{ 
 							 String output = ""; 
 							 try
@@ -177,7 +177,7 @@ public class Payment {
 								 
 							 } 
 							 // create a prepared statement
-							 String query = "UPDATE payment SET Name=?,Email=?,Address=?,ContactNumber=?,CardName=?,CreditCardNumber=?,ExpiryDate=?,CVV=? WHERE PaymentID=? ";
+							 String query = "UPDATE payment SET Name=?,Email=?,Address=?,ContactNumber=?,CardName=?,CreditCardNumber=?,ExpiryDate=?,CVV=?,PaymentDate=? WHERE PaymentID=? ";
 								
 							 PreparedStatement preparedStmt = con.prepareStatement(query);
 							 
@@ -189,8 +189,9 @@ public class Payment {
 							 preparedStmt.setString(5, cname); 
 							 preparedStmt.setString(6, cardno); 
 							 preparedStmt.setString(7, expdate); 
-							 preparedStmt.setString(8, cvv); 
-							 preparedStmt.setInt(9, Integer.parseInt(ID)); 
+							 preparedStmt.setString(8, cvv);
+							 preparedStmt.setString(9, paymentdate);
+							 preparedStmt.setInt(10, Integer.parseInt(ID)); 
 							 
 							 // execute the statement
 							    preparedStmt.execute(); 
