@@ -74,7 +74,8 @@ Payment payment = new Payment();
 		 String CreditCardNumber = payObj.get("CreditCardNumber").getAsString(); 
 		 String ExpiryDate = payObj.get("ExpiryDate").getAsString();
 		 String CVV = payObj.get("CVV").getAsString(); 
-		 String output = payment.updatePayment(PaymentID,Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV); 
+		 String PaymentDate = payObj.get("PaymentDate").getAsString();
+		 String output = payment.updatePayment(PaymentID,Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV,PaymentDate); 
 		
 		 return output; 
 		}
