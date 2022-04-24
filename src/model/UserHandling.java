@@ -116,6 +116,41 @@ public class UserHandling {
 				return output; 
 			}
 			
-			 
+
+			//delete user account
+			public String deleteUser(String UID) {
+				
+				String output = "";
+
+				try {
+					Connection con = connect();
+
+					if (con == null) {
+						return "Error while connecting to the database for deleting.";
+					}
+
+					// create a prepared statement
+					String query = "delete from userdb where UID=?";
+					PreparedStatement preparedStmt = con.prepareStatement(query);
+
+					// binding values
+					preparedStmt.setInt(1, Integer.parseInt(UID));
+
+					// execute the statement
+					preparedStmt.execute();
+					con.close();
+
+					output = "User Deleted successfully";
+
+				} catch (Exception e) {
+					output = "Error while deleting the details.";
+					System.err.println(e.getMessage());
+				}
+				return output;
+			}
+			
+			
+			
+					 
 			
 }
