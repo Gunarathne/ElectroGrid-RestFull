@@ -37,10 +37,11 @@ Payment payment = new Payment();
 	 @FormParam("CreditCardNumber") String CreditCardNumber, 
 	 @FormParam("ExpiryDate") String ExpiryDate, 
 	 @FormParam("CVV") String CVV,
-	 @FormParam("PaymentDate") String PaymentDate)
+	 @FormParam("PaymentDate") String PaymentDate,
+	 @FormParam("Amount") String Amount)
 	
 	{ 
-	 String output = payment.insertPayment(Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV,PaymentDate); 
+	 String output = payment.insertPayment(Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV,PaymentDate,Amount); 
 	 return output; 
 	}
 	
@@ -75,7 +76,8 @@ Payment payment = new Payment();
 		 String ExpiryDate = payObj.get("ExpiryDate").getAsString();
 		 String CVV = payObj.get("CVV").getAsString(); 
 		 String PaymentDate = payObj.get("PaymentDate").getAsString();
-		 String output = payment.updatePayment(PaymentID,Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV,PaymentDate); 
+		 String Amount = payObj.get("Amount").getAsString();
+		 String output = payment.updatePayment(PaymentID,Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV,PaymentDate,Amount); 
 		
 		 return output; 
 		}
