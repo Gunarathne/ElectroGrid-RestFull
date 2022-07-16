@@ -1,6 +1,7 @@
 package com;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -8,6 +9,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -31,10 +36,12 @@ Payment payment = new Payment();
 	 @FormParam("CardName") String CardName, 
 	 @FormParam("CreditCardNumber") String CreditCardNumber, 
 	 @FormParam("ExpiryDate") String ExpiryDate, 
-	 @FormParam("CVV") String CVV) 
+	 @FormParam("CVV") String CVV,
+	 @FormParam("PaymentDate") String PaymentDate,
+	 @FormParam("Amount") String Amount)
 	
 	{ 
-	 String output = payment.insertPayment(Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV); 
+	 String output = payment.insertPayment(Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV,PaymentDate,Amount); 
 	 return output; 
 	}
 	
@@ -68,9 +75,29 @@ Payment payment = new Payment();
 		 String CreditCardNumber = payObj.get("CreditCardNumber").getAsString(); 
 		 String ExpiryDate = payObj.get("ExpiryDate").getAsString();
 		 String CVV = payObj.get("CVV").getAsString(); 
-		 String output = payment.updatePayment(PaymentID,Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV); 
+		 String PaymentDate = payObj.get("PaymentDate").getAsString();
+		 String Amount = payObj.get("Amount").getAsString();
+		 String output = payment.updatePayment(PaymentID,Name,Email,Address,ContactNumber,CardName,CreditCardNumber,ExpiryDate,CVV,PaymentDate,Amount); 
 		
 		 return output; 
 		}
+		
+		// deletePayment() method
+		
+				@DELETE
+				@Path("/DeletePayment") 
+				@Consumes(MediaType.APPLICATION_XML) 
+				@Produces(MediaType.TEXT_PLAIN) 
+				public String deletePayment(String paymentData) 
+				{ 
+				//Convert the input string to an XML document
+				 Document doc = Jsoup.parse(paymentData, "", Parser.xmlParser()); 
+				 
+				//Read the value from the element <itemID>
+				 String PaymentID = doc.select("PaymentID").text(); 
+				 String output = payment.deletePayment(PaymentID); 
+				
+				 return output; 
+				}
 	
 }

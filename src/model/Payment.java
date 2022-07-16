@@ -30,7 +30,7 @@ public class Payment {
 		}
 
 		         //Insert Buyers
-				public String insertPayment(String username, String email, String address, String connumber, String cname, String cardno, String expdate, String cvv)
+				public String insertPayment(String username, String email, String address, String connumber, String cname, String cardno, String expdate, String cvv, String paymentdate,String amount)
 				{ 
 					Connection con = connect();
 					String output = "";
@@ -43,7 +43,7 @@ public class Payment {
 						 } 
 						 
 						 // create a prepared statement
-						 String query = " insert into payment (`PaymentID`,`Name`,`Email`,`Address`,`ContactNumber`,`CardName`,`CreditCardNumber`,`ExpiryDate`,`CVV`)"+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+						 String query = " insert into payment (`PaymentID`,`Name`,`Email`,`Address`,`ContactNumber`,`CardName`,`CreditCardNumber`,`ExpiryDate`,`CVV`,`PaymentDate`,`Amount`)"+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 						 
 						 PreparedStatement Pstatement = con.prepareStatement(query); 
 						 
@@ -57,6 +57,8 @@ public class Payment {
 						 Pstatement.setString(7, cardno);
 						 Pstatement.setString(8, expdate);
 						 Pstatement.setString(9, cvv);
+						 Pstatement.setString(10, paymentdate);
+						 Pstatement.setString(11, amount);
 						 
 						 
 						//execute the statement
@@ -101,7 +103,9 @@ public class Payment {
 							 + "<th>Card Name</th>"
 							 + "<th>Credit Card Number</th>"
 							 + "<th>Expiry Date</th>"
-							 + "<th>CVV</th>" 
+							 + "<th>CVV</th>"
+							 + "<th>Payment Date</th>"
+							 + "<th>Amount</th>"
 							 + "<th>Update</th><th>Remove</th></tr>"; 
 					 
 					 String query = "select * from payment"; 
@@ -120,7 +124,9 @@ public class Payment {
 						 String CardName = res.getString("CardName"); 
 						 String CreditCardNumber = res.getString("CreditCardNumber"); 
 						 String ExpiryDate = res.getString("ExpiryDate"); 
-						 String CVV = res.getString("CVV"); 
+						 String CVV = res.getString("CVV");
+						 String PaymentDate = res.getString("PaymentDate");
+						 String Amount = res.getString("Amount");
 						 
 						 // Add a row into the html table
 						 output += "<tr><td>" + PaymentID + "</td>";
@@ -132,6 +138,8 @@ public class Payment {
 						 output += "<td>" + CreditCardNumber + "</td>"; 
 						 output += "<td>" + ExpiryDate + "</td>";
 						 output += "<td>" + CVV + "</td>";
+						 output += "<td>" + PaymentDate + "</td>";
+						 output += "<td>" + Amount + "</td>";
 						 
 						 // buttons
 						 output += "<td><input name='btnUpdate' " 
@@ -161,7 +169,7 @@ public class Payment {
 				}
 
 				// Update buyers in the table
-				public String updatePayment(String ID, String username, String email, String address, String connumber, String cname, String cardno, String expdate, String cvv)
+				public String updatePayment(String ID, String username, String email, String address, String connumber, String cname, String cardno, String expdate, String cvv, String paymentdate, String amount)
 						{ 
 							 String output = ""; 
 							 try
@@ -173,7 +181,7 @@ public class Payment {
 								 
 							 } 
 							 // create a prepared statement
-							 String query = "UPDATE payment SET Name=?,Email=?,Address=?,ContactNumber=?,CardName=?,CreditCardNumber=?,ExpiryDate=?,CVV=? WHERE PaymentID=? ";
+							 String query = "UPDATE payment SET Name=?,Email=?,Address=?,ContactNumber=?,CardName=?,CreditCardNumber=?,ExpiryDate=?,CVV=?,PaymentDate=?,Amount=? WHERE PaymentID=? ";
 								
 							 PreparedStatement preparedStmt = con.prepareStatement(query);
 							 
@@ -185,8 +193,10 @@ public class Payment {
 							 preparedStmt.setString(5, cname); 
 							 preparedStmt.setString(6, cardno); 
 							 preparedStmt.setString(7, expdate); 
-							 preparedStmt.setString(8, cvv); 
-							 preparedStmt.setInt(9, Integer.parseInt(ID)); 
+							 preparedStmt.setString(8, cvv);
+							 preparedStmt.setString(9, paymentdate);
+							 preparedStmt.setString(10, amount);
+							 preparedStmt.setInt(11, Integer.parseInt(ID)); 
 							 
 							 // execute the statement
 							    preparedStmt.execute(); 
@@ -202,6 +212,38 @@ public class Payment {
 							 
 							 return output; 
 							 }
+				
+				// Delete buyer in the table
+				public String deletePayment(String PaymentID) {
+					String output = "";
+
+					try {
+						Connection con = connect();
+
+						if (con == null) {
+							return "Error while connecting to the database for deleting.";
+						}
+
+						// create a prepared statement
+						String query = "delete from payment where PaymentID=?";
+						PreparedStatement preparedStmt = con.prepareStatement(query);
+
+						// binding values
+						preparedStmt.setInt(1, Integer.parseInt(PaymentID));
+
+						// execute the statement
+						preparedStmt.execute();
+						con.close();
+
+						output = "payment details Deleted successfully";
+
+					} catch (Exception e) {
+						output = "Error while deleting the payment details.";
+						System.err.println(e.getMessage());
+					}
+
+					return output;
+				}
 				
 
 }
